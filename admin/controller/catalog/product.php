@@ -320,6 +320,7 @@ class ControllerCatalogProduct extends Controller {
 		);
 
 		$data['add'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
+		$data['add_bundle'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&is_bundle=yes' . $url, 'SSL');
 		$data['copy'] = $this->url->link('catalog/product/copy', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['delete'] = $this->url->link('catalog/product/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
