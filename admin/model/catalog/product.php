@@ -85,6 +85,15 @@ class ModelCatalogProduct extends Model {
 			}
 		}
 
+		if (isset($data['bundle_child'])) {
+			foreach ($data['bundle_child'] as $child_key => $child_val) {
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_bundle WHERE bundle_id = '" . (int)$product_id . "' AND product_id = '" . (int)$child_key . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_bundle SET bundle_id = '" . (int)$product_id . "', product_id = '" . (int)$child_key . "', sort_order = '" . (int)$child_val . "'");
+				$this->db->query("DELETE FROM " . DB_PREFIX . "product_bundle WHERE bundle_id = '" . (int)$related_id . "' AND product_id = '" . (int)$child_key . "'");
+				$this->db->query("INSERT INTO " . DB_PREFIX . "product_bundle SET bundle_id = '" . (int)$related_id . "', product_id = '" . (int)$child_key . "', sort_order = '" . (int)$child_val . "'");
+			}
+		}
+
 		if (isset($data['product_related'])) {
 			foreach ($data['product_related'] as $related_id) {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "product_related WHERE product_id = '" . (int)$product_id . "' AND related_id = '" . (int)$related_id . "'");

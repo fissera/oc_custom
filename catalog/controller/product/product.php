@@ -156,6 +156,8 @@ class ControllerProductProduct extends Controller {
 
 		$this->load->model('catalog/product');
 
+		$data['products_bundle'] = $this->model_catalog_product->getBundle($product_id);
+
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
 		if ($product_info) {

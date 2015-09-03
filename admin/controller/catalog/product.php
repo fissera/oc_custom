@@ -20,6 +20,7 @@ class ControllerCatalogProduct extends Controller {
 		$this->load->model('catalog/product');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+
 			$this->model_catalog_product->addProduct($this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
@@ -306,6 +307,9 @@ class ControllerCatalogProduct extends Controller {
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
 		}
+		if (isset($this->request->get['is_bundle'])) {
+			$url .= '&is_bundle=' . $this->request->get['is_bundle'];
+		}
 
 		$data['breadcrumbs'] = array();
 
@@ -320,7 +324,7 @@ class ControllerCatalogProduct extends Controller {
 		);
 
 		$data['add'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
-		$data['add_bundle'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . '&is_bundle=yes' . $url, 'SSL');
+		$data['add_bundle'] = $this->url->link('catalog/product/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['copy'] = $this->url->link('catalog/product/copy', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['delete'] = $this->url->link('catalog/product/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
@@ -623,6 +627,9 @@ class ControllerCatalogProduct extends Controller {
 
 		$data['tab_general'] = $this->language->get('tab_general');
 		$data['tab_data'] = $this->language->get('tab_data');
+		if (isset($this->request->get['is_bundle']) == 'yes') {
+			$data['tab_bundle_data'] = $this->language->get('tab_bundle_data');
+		}
 		$data['tab_attribute'] = $this->language->get('tab_attribute');
 		$data['tab_option'] = $this->language->get('tab_option');
 		$data['tab_recurring'] = $this->language->get('tab_recurring');

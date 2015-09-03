@@ -3,3 +3,5 @@ admin/config.php
 oc_custom.sublime-project
 oc_custom.sublime-workspace
 *.phpintel/*
+image/cache
+/system/cache/*
